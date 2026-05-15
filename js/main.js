@@ -3,17 +3,38 @@ function initMobileNav() {
   const mobileNav = document.querySelector(".nav-mobile");
   if (!toggle || !mobileNav) return;
 
+  const backdrop = document.createElement("button");
+  backdrop.type = "button";
+  backdrop.className = "mobile-nav-backdrop";
+  backdrop.setAttribute("aria-label", "關閉選單");
+  document.body.appendChild(backdrop);
+
+  function setOpen(open) {
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "關閉選單" : "開啟選單");
+    mobileNav.classList.toggle("is-open", open);
+    backdrop.classList.toggle("is-visible", open);
+    document.body.classList.toggle("mobile-nav-open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+
   toggle.addEventListener("click", () => {
     const open = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!open));
-    mobileNav.classList.toggle("is-open", !open);
+    setOpen(!open);
+  });
+
+  backdrop.addEventListener("click", () => {
+    setOpen(false);
   });
 
   mobileNav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      toggle.setAttribute("aria-expanded", "false");
-      mobileNav.classList.remove("is-open");
+      setOpen(false);
     });
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) setOpen(false);
   });
 }
 
