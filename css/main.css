@@ -86,7 +86,7 @@ a {
 
 .nav-desktop a {
   font-size: 0.9rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
   transition: opacity 0.2s;
 }
 
@@ -421,7 +421,7 @@ a {
 }
 
 .gallery-grid--dense .gallery-item::after {
-  content: "View fullsize";
+  content: "看大圖";
   pointer-events: none;
   position: absolute;
   inset: 0;
@@ -432,8 +432,8 @@ a {
   font-family: var(--font-sans);
   font-size: 0.65rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-transform: none;
   color: rgba(255, 255, 255, 0.95);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
   background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.38));

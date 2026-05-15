@@ -35,7 +35,7 @@ function initLightbox() {
     if (n === 0) return;
     lightboxState.index = ((i % n) + n) % n;
     img.src = lightboxState.urls[lightboxState.index];
-    img.alt = `Photo ${lightboxState.index + 1} of ${n}`;
+    img.alt = `第 ${lightboxState.index + 1} 張，共 ${n} 張`;
     lightbox.classList.add("is-open");
     document.body.style.overflow = "hidden";
   }
@@ -224,8 +224,8 @@ async function loadGallery(galleryKey) {
     if (!images.length) {
       const hint =
         galleryKey === "newborn"
-          ? "找不到圖片。請將照片放入 <code>uploads/newborn/</code> 後執行 <code>python3 scripts/scan-uploads.py</code>，或保留空的 uploads 以使用預設線上圖庫。"
-          : "找不到圖片。請將照片放入 uploads 資料夾後執行 python3 scripts/scan-uploads.py";
+          ? "找不到圖片。請把照片放到 <code>uploads/newborn/</code> 後執行 <code>python3 scripts/scan-uploads.py</code>；若先不上傳照片，也會改用預設的線上相簿。"
+          : "找不到圖片。請把照片放到 uploads 資料夾後執行 python3 scripts/scan-uploads.py";
       grid.innerHTML = `<p class="loading">${hint}</p>`;
       return;
     }
@@ -236,14 +236,14 @@ async function loadGallery(galleryKey) {
         const full = galleryImageSrc(src, "full");
         return `
       <figure class="gallery-item" data-index="${i}">
-        <img src="${tile}" data-full-src="${full}" alt="Babyface photography ${i + 1}" loading="lazy" width="1200">
+        <img src="${tile}" data-full-src="${full}" alt="Babyface 攝影作品第 ${i + 1} 張" loading="lazy" width="1200">
       </figure>`;
       })
       .join("");
 
     await layoutDenseMasonry(grid);
   } catch {
-    grid.innerHTML = '<p class="loading">Could not load gallery.</p>';
+    grid.innerHTML = '<p class="loading">無法載入相簿。</p>';
   }
 }
 
