@@ -213,6 +213,12 @@ async function loadGallery(galleryKey) {
   const grid = document.getElementById("gallery");
   if (!grid) return;
 
+  const section = grid.closest(".gallery-section");
+  const finishGalleryLoading = () => {
+    section?.classList.remove("is-gallery-loading");
+    section?.setAttribute("aria-busy", "false");
+  };
+
   try {
     let manifest = {};
     let manifestOk = false;
@@ -248,6 +254,7 @@ async function loadGallery(galleryKey) {
           ? "找不到圖片。請把照片放到 <code>uploads/newborn/</code> 後執行 <code>python3 scripts/scan-uploads.py</code>；若先不上傳照片，也會改用預設的線上相簿。"
           : "找不到圖片。請把照片放到 uploads 資料夾後執行 python3 scripts/scan-uploads.py";
       grid.innerHTML = `<p class="loading">${hint}</p>`;
+      finishGalleryLoading();
       return;
     }
 
@@ -263,8 +270,13 @@ async function loadGallery(galleryKey) {
       .join("");
 
     await layoutDenseMasonry(grid);
+    await new Promise((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+    });
+    finishGalleryLoading();
   } catch {
     grid.innerHTML = '<p class="loading">無法載入相簿。</p>';
+    finishGalleryLoading();
   }
 }
 

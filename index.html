@@ -8,11 +8,11 @@
   <link rel="icon" href="assets/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
   <!-- Fallback when opening as file:// (fetch cannot load JSON); mirrors data/uploads-manifest.json newborn list -->
   <script type="application/json" id="page-gallery-fallback">
-{"newborn": ["uploads/newborn/_D4H4309拷貝.jpg", "uploads/newborn/_D4H4834.jpg", "uploads/newborn/_D4H5948拷貝.jpg", "uploads/newborn/_DSC0193.jpg", "uploads/newborn/_DSC0562.jpg", "uploads/newborn/_DSC0927.jpg", "uploads/newborn/_DSC0970.jpg", "uploads/newborn/_DSC1719.jpg", "uploads/newborn/_DSC1806.jpg", "uploads/newborn/_DSC2027.jpg", "uploads/newborn/_DSC2053.jpg", "uploads/newborn/_DSC2089.jpg", "uploads/newborn/_DSC2223.jpg", "uploads/newborn/_DSC2389.jpg", "uploads/newborn/_DSC2434.jpg", "uploads/newborn/_DSC2780.jpg", "uploads/newborn/_DSC3059.jpg", "uploads/newborn/_DSC3750.jpg", "uploads/newborn/_DSC3777.jpg", "uploads/newborn/_DSC3788.jpg", "uploads/newborn/_DSC3802.jpg", "uploads/newborn/_DSC3945.jpg", "uploads/newborn/_DSC3946.jpg", "uploads/newborn/_DSC3970.jpg", "uploads/newborn/_DSC4013.jpg", "uploads/newborn/_DSC4015.jpg", "uploads/newborn/_DSC4368.jpg", "uploads/newborn/_DSC4448.jpg", "uploads/newborn/_DSC4636.jpg"]}
+{"newborn": ["uploads/newborn/_D4H4309拷貝.jpg", "uploads/newborn/_D4H5948拷貝.jpg", "uploads/newborn/_DSC0193.jpg", "uploads/newborn/_DSC0562.jpg", "uploads/newborn/_DSC0927.jpg", "uploads/newborn/_DSC0970.jpg", "uploads/newborn/_DSC1719.jpg", "uploads/newborn/_DSC1806.jpg", "uploads/newborn/_DSC2027.jpg", "uploads/newborn/_DSC2053.jpg", "uploads/newborn/_DSC2089.jpg", "uploads/newborn/_DSC2223.jpg", "uploads/newborn/_DSC2389.jpg", "uploads/newborn/_DSC2434.jpg", "uploads/newborn/_DSC2780.jpg", "uploads/newborn/_DSC3059.jpg", "uploads/newborn/_DSC3750.jpg", "uploads/newborn/_DSC3777.jpg", "uploads/newborn/_DSC3788.jpg", "uploads/newborn/_DSC3802.jpg", "uploads/newborn/_DSC3945.jpg", "uploads/newborn/_DSC3946.jpg", "uploads/newborn/_DSC3970.jpg", "uploads/newborn/_DSC4013.jpg", "uploads/newborn/_DSC4015.jpg", "uploads/newborn/_DSC4368.jpg", "uploads/newborn/_DSC4448.jpg", "uploads/newborn/_DSC4636.jpg"]}
   </script>
 </head>
 <body data-gallery="newborn">
@@ -21,8 +21,9 @@
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="logo" aria-label="Babyface 首頁">
-        <img src="assets/logo.png" alt="Babyface" width="200" height="42">
+        <img src="assets/logo.jpg" alt="Baby Face" width="200" height="170">
       </a>
+      <div class="header-tools">
       <nav class="nav-desktop" aria-label="主選單">
         <a href="index.html" aria-current="page">Babyface美式新生兒寫真</a>
         <a href="familyphotography.html">家庭/周歲攝影</a>
@@ -41,6 +42,7 @@
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="開啟選單">
         <span></span><span></span><span></span>
       </button>
+      </div>
     </div>
     <nav id="mobile-nav" class="nav-mobile" aria-label="手機版選單">
       <a href="index.html" aria-current="page">Babyface美式新生兒寫真</a>
@@ -60,15 +62,21 @@
   </header>
 
   <main id="main">
-    <section class="gallery-section gallery-section--fullbleed" aria-label="新生兒寫真作品集">
-      <div id="gallery" class="gallery-grid gallery-grid--dense">
-        <p class="loading">相簿載入中…</p>
+    <section
+      class="gallery-section gallery-section--fullbleed is-gallery-loading"
+      aria-label="新生兒寫真作品集"
+      aria-busy="true"
+    >
+      <div class="gallery-page-loader" role="status" aria-live="polite">
+        <span class="gallery-page-loader-spinner" aria-hidden="true"></span>
+        <p class="gallery-page-loader-text">相簿載入中…</p>
       </div>
+      <div id="gallery" class="gallery-grid gallery-grid--dense"></div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© 2023 Cloudvision Studio</p>
+    <p>© 2026 Cloudvision Studio</p>
     <p class="footer-line">
       <a href="https://lin.ee/Q7MbhcG" class="btn btn-line" target="_blank" rel="noopener">Line 預約洽詢</a>
     </p>
