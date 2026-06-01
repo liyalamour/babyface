@@ -390,6 +390,10 @@ a {
   color: var(--color-text-warm);
 }
 
+.page-content--warm .subtitle {
+  color: var(--color-text-warm-muted);
+}
+
 .page-content--warm .contact-email {
   color: var(--color-text-warm-muted);
 }
@@ -769,12 +773,13 @@ a {
 
 @media (max-width: 1024px) {
   :root {
-    --logo-max-width: min(58vw, 15rem);
-    --logo-max-height: clamp(2.5rem, 11vw, 4rem);
+    --logo-max-width: min(62vw, 16rem);
+    --logo-max-height: clamp(3rem, 13vw, 4.75rem);
   }
 
   .header-inner {
-    padding: max(0.25rem, 1vw) clamp(3vw, 4vw, 3.5vw);
+    padding: max(0.5rem, 1.35vw) clamp(3vw, 4vw, 3.5vw);
+    min-height: 4.75rem;
     display: grid;
     grid-template-columns: minmax(2.75rem, 1fr) auto minmax(2.75rem, 1fr);
     align-items: center;
@@ -816,11 +821,14 @@ a {
 
 @media (max-width: 480px) {
   :root {
-    --logo-max-width: min(52vw, 11.5rem);
-    --logo-max-height: clamp(2.35rem, 12vw, 3.35rem);
+    --logo-max-width: min(58vw, 13rem);
+    --logo-max-height: clamp(2.85rem, 14vw, 4.25rem);
   }
 
   .header-inner {
+    min-height: 4.5rem;
+    padding-top: max(0.55rem, 1.5vw);
+    padding-bottom: max(0.55rem, 1.5vw);
     padding-left: 4vw;
     padding-right: 4vw;
   }
