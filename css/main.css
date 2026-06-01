@@ -465,40 +465,18 @@ a {
   margin-top: 1.25rem;
 }
 
-.footer-seo {
-  margin: 0 0 0.75rem;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: var(--color-muted);
-  letter-spacing: 0.04em;
-}
-
-.gallery-seo-intro {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: calc(1.5rem + var(--header-height)) 4vw 1rem;
-  text-align: center;
-}
-
-.gallery-seo-intro h1 {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
-  margin: 0 0 0.65rem;
-  letter-spacing: 0.06em;
-  color: var(--color-text-warm);
-}
-
-.gallery-seo-intro p {
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: var(--color-text-warm-muted);
-}
-
-.gallery-seo-intro strong {
-  font-weight: 600;
-  color: var(--color-text-warm);
+/* SEO copy: in HTML for crawlers, not shown on screen */
+.seo-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Lightbox */
