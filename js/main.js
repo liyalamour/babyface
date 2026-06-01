@@ -38,6 +38,63 @@ function initMobileNav() {
   });
 }
 
+function initScrollHeader() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
+
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  const scrollDelta = 8;
+  const hideAfterScroll = 64;
+
+  function isHeaderLockedOpen() {
+    if (document.body.classList.contains("mobile-nav-open")) return true;
+    const lightbox = document.getElementById("lightbox");
+    return Boolean(lightbox?.classList.contains("is-open"));
+  }
+
+  function setHeaderHidden(hidden) {
+    header.classList.toggle("is-scroll-hidden", hidden);
+  }
+
+  function updateHeaderOnScroll() {
+    const currentY = window.scrollY;
+    const delta = currentY - lastScrollY;
+
+    if (isHeaderLockedOpen()) {
+      setHeaderHidden(false);
+      lastScrollY = currentY;
+      return;
+    }
+
+    if (currentY <= hideAfterScroll) {
+      setHeaderHidden(false);
+    } else if (delta > scrollDelta) {
+      setHeaderHidden(true);
+    } else if (delta < -scrollDelta) {
+      setHeaderHidden(false);
+    }
+
+    lastScrollY = currentY;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateHeaderOnScroll();
+        ticking = false;
+      });
+    },
+    { passive: true }
+  );
+}
+
 /** @type {{ urls: string[], index: number } | null} */
 let lightboxState = null;
 
@@ -282,6 +339,7 @@ async function loadGallery(galleryKey) {
 
 document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
+  initScrollHeader();
   initLightbox();
 
   const galleryKey = document.body.dataset.gallery;
