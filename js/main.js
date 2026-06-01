@@ -324,6 +324,13 @@ function readPageGalleryFallback() {
   }
 }
 
+/** Gallery image alt prefix by page gallery key */
+const GALLERY_ALT_PREFIX = {
+  newborn: "Babyface 新生兒寫真",
+  family: "Babyface 全家福攝影",
+  wedding: "Babyface 婚禮攝影",
+};
+
 async function loadGallery(galleryKey) {
   const grid = document.getElementById("gallery");
   if (!grid) return;
@@ -373,13 +380,15 @@ async function loadGallery(galleryKey) {
       return;
     }
 
+    const altPrefix = GALLERY_ALT_PREFIX[galleryKey] || "Babyface 攝影作品";
+
     grid.innerHTML = images
       .map((src, i) => {
         const tile = galleryImageSrc(src, "hero");
         const full = galleryImageSrc(src, "full");
         return `
       <figure class="gallery-item" data-index="${i}">
-        <img src="${tile}" data-full-src="${full}" alt="Babyface 攝影作品第 ${i + 1} 張" loading="lazy" width="1200">
+        <img src="${tile}" data-full-src="${full}" alt="${altPrefix}作品第 ${i + 1} 張" loading="lazy" width="1200">
       </figure>`;
       })
       .join("");
