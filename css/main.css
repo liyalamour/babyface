@@ -412,13 +412,19 @@ a {
   margin-bottom: 2rem;
 }
 
-.page-video {
+.page-content .page-video {
+  display: block;
+  width: 100%;
+  max-width: none;
   margin: 0 0 2rem;
+  margin-inline: 0;
+  padding: 0;
 }
 
 .page-video-embed {
   position: relative;
   width: 100%;
+  max-width: 100%;
   aspect-ratio: 16 / 9;
   background: #1a1a1a;
   border: 1px solid var(--color-border);
