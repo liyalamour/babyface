@@ -1,3 +1,5 @@
+let syncHeaderHeight = () => {};
+
 function initMobileNav() {
   const toggle = document.querySelector(".menu-toggle");
   const mobileNav = document.querySelector(".nav-mobile");
@@ -16,6 +18,7 @@ function initMobileNav() {
     backdrop.classList.toggle("is-visible", open);
     document.body.classList.toggle("mobile-nav-open", open);
     document.body.style.overflow = open ? "hidden" : "";
+    syncHeaderHeight();
   }
 
   toggle.addEventListener("click", () => {
@@ -34,8 +37,32 @@ function initMobileNav() {
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) setOpen(false);
+    if (window.innerWidth > 1024) setOpen(false);
   });
+}
+
+function initHeaderHeight() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+
+  const update = () => {
+    const height = Math.ceil(header.getBoundingClientRect().height);
+    document.documentElement.style.setProperty("--header-height", `${height}px`);
+  };
+
+  syncHeaderHeight = update;
+  update();
+  window.addEventListener("resize", update, { passive: true });
+
+  const logoImg = header.querySelector(".logo img");
+  if (logoImg && !logoImg.complete) {
+    logoImg.addEventListener("load", update, { once: true });
+  }
+
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(update);
+    observer.observe(header);
+  }
 }
 
 function initScrollHeader() {
@@ -405,6 +432,7 @@ async function loadGallery(galleryKey) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initHeaderHeight();
   initMobileNav();
   initScrollHeader();
   initLightbox();
