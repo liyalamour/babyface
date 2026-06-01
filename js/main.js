@@ -125,6 +125,62 @@ function initLightbox() {
     lightboxState = null;
   }
 
+  function goPrev() {
+    showLightbox(lightboxState ? lightboxState.index - 1 : 0);
+  }
+
+  function goNext() {
+    showLightbox(lightboxState ? lightboxState.index + 1 : 0);
+  }
+
+  function initLightboxSwipe() {
+    const minSwipe = 50;
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+
+    function onSwipeStart(clientX, clientY) {
+      if (!lightbox.classList.contains("is-open")) return;
+      tracking = true;
+      startX = clientX;
+      startY = clientY;
+    }
+
+    function onSwipeEnd(clientX, clientY) {
+      if (!tracking || !lightboxState) return;
+      tracking = false;
+
+      const deltaX = clientX - startX;
+      const deltaY = clientY - startY;
+      if (Math.abs(deltaX) < minSwipe || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+      if (deltaX > 0) goPrev();
+      else goNext();
+    }
+
+    lightbox.addEventListener(
+      "touchstart",
+      (e) => {
+        if (e.touches.length !== 1) return;
+        onSwipeStart(e.touches[0].clientX, e.touches[0].clientY);
+      },
+      { passive: true }
+    );
+
+    lightbox.addEventListener(
+      "touchend",
+      (e) => {
+        if (e.changedTouches.length !== 1) return;
+        onSwipeEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+
+    lightbox.addEventListener("touchcancel", () => {
+      tracking = false;
+    });
+  }
+
   function openLightbox(urls, startIndex) {
     if (!urls.length) return;
     lightboxState = { urls, index: startIndex };
@@ -146,8 +202,10 @@ function initLightbox() {
   });
 
   closeBtn?.addEventListener("click", hideLightbox);
-  prevBtn?.addEventListener("click", () => showLightbox(lightboxState ? lightboxState.index - 1 : 0));
-  nextBtn?.addEventListener("click", () => showLightbox(lightboxState ? lightboxState.index + 1 : 0));
+  prevBtn?.addEventListener("click", goPrev);
+  nextBtn?.addEventListener("click", goNext);
+
+  initLightboxSwipe();
 
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) hideLightbox();
@@ -156,8 +214,8 @@ function initLightbox() {
   document.addEventListener("keydown", (e) => {
     if (!lightbox.classList.contains("is-open")) return;
     if (e.key === "Escape") hideLightbox();
-    if (e.key === "ArrowLeft") showLightbox(lightboxState ? lightboxState.index - 1 : 0);
-    if (e.key === "ArrowRight") showLightbox(lightboxState ? lightboxState.index + 1 : 0);
+    if (e.key === "ArrowLeft") goPrev();
+    if (e.key === "ArrowRight") goNext();
   });
 
 }

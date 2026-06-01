@@ -463,6 +463,7 @@ a {
 .lightbox.is-open {
   opacity: 1;
   visibility: visible;
+  touch-action: none;
 }
 
 .lightbox img {
